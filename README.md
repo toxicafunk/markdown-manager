@@ -1,3 +1,6 @@
+# markdown-manager
+Live edit, import and export markdown files
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
