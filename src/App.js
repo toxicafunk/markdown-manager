@@ -1,26 +1,58 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+var md = require('markdown-it')();
+
+class Input extends React.Component {
+
+  onChange(event) {
+    this.props.onBlur(event.target.value);
+  }
+
+  render() {
+    return <div>
+        <textarea onChange={this.onChange.bind(this)}/>
+      </div>
+  }
+}
+
+/*
+ * Props -> ReactComponents
+ *
+ * Props = Map
+ *
+ * State -> ReactComponents
+ *
+ * State -> View
+ **/
+
+class Viewer extends React.Component {
+  render() {
+      return <div>You typed:
+        <span dangerouslySetInnerHTML={{__html:this.props.text}} />
+      </div>
+  }
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {typed: ''};
+  }
+
+  handleBlur= (text) => {
+    var mdText = md.render(text)
+    this.setState({typed: mdText});
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Input onBlur={this.handleBlur} />
+        <Viewer text={this.state.typed}/>
     </div>
-  );
+    );
+  }
 }
 
 export default App;
