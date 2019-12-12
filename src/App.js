@@ -1,38 +1,12 @@
 import React from 'react';
 import './App.css';
+import Editor from './components/editor'
+import Viewer from './components/viewer'
+import ImportFromFileBody from './components/importFromFileBody'
 
 var md = require('markdown-it')();
 
-class Input extends React.Component {
-
-  onChange(event) {
-    this.props.onBlur(event.target.value);
-  }
-
-  render() {
-    return <div>
-        <textarea onChange={this.onChange.bind(this)}/>
-      </div>
-  }
-}
-
-/*
- * Props -> ReactComponents
- *
- * Props = Map
- *
- * State -> ReactComponents
- *
- * State -> View
- **/
-
-class Viewer extends React.Component {
-  render() {
-      return <div>You typed:
-        <span dangerouslySetInnerHTML={{__html:this.props.text}} />
-      </div>
-  }
-}
+const CapViewer = Viewer
 
 class App extends React.Component {
   constructor(props) {
@@ -40,16 +14,21 @@ class App extends React.Component {
     this.state = {typed: ''};
   }
 
-  handleBlur= (text) => {
-    var mdText = md.render(text)
-    this.setState({typed: mdText});
+  handleBlur = (text) => {
+    this.setState({typed: text});
+  }
+
+  handleUpload = (text) => {
+    this.setState({typed: text});
   }
 
   render() {
     return (
       <div className="App">
-        <Input onBlur={this.handleBlur} />
-        <Viewer text={this.state.typed}/>
+        <ImportFromFileBody onUpload={this.handleUpload}/>
+        <Editor onBlur={this.handleBlur} />
+        <Viewer text={md.render(this.state.typed)} />
+        <CapViewer text={this.state.typed.toUpperCase()} />
     </div>
     );
   }
