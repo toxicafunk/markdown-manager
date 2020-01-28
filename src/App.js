@@ -27,11 +27,12 @@ class App extends React.Component {
   }
 
   handleSave = () => {
-    localStorage.setItem(this.state.mdname, JSON.stringify(this.state.typed))
+    localStorage.setItem(this.state.mdname, JSON.stringify(this.state))
   }
 
   handleLoad = () => {
-    this.setState({typed: JSON.parse(localStorage.getItem(this.state.mdname))})
+    var item = JSON.parse(localStorage.getItem(this.state.mdname));
+    this.setState({typed: item.typed})
   }
 
   handleSetName = (name) => {
