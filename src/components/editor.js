@@ -14,6 +14,10 @@ class Editor extends React.Component {
     this.props.onSave();
   }
 
+  onSend() {
+    this.props.onSend();
+  }
+
   onLoad() {
     this.props.onLoad();
   }
@@ -29,6 +33,7 @@ class Editor extends React.Component {
       <input name="mdname" onChange={this.onSetName.bind(this)} type="text" placeholder="Enter a name..." minLength="4" maxLength="8" size="10" />
       <button onClick={this.onSave.bind(this)}>SAVE</button>
       <button onClick={this.onLoad.bind(this)}>LOAD</button>
+      <button onClick={this.onSend.bind(this)}>Send</button>
       </div>
   }
 }

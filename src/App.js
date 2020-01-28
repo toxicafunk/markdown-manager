@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
 import Editor from './components/editor'
 import Viewer from './components/viewer'
@@ -7,6 +8,12 @@ import ImportFromFileBody from './components/importFromFileBody'
 var md = require('markdown-it')();
 
 const CapViewer = Viewer
+
+const client = axios.create({
+  baseURL: 'https://confluence.eniro.com/rest/api',
+  timeout: 1000,
+  headers: {'Content-Type': 'application/json', 'Authorization': 'erro05:password' }
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -39,12 +46,18 @@ class App extends React.Component {
     this.setState({mdname: name});
   }
 
+  handleSend = () => client.get("/space")
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+
   render() {
     return (
       <div className="App">
         <ImportFromFileBody onUpload={this.handleUpload}/>
         <Editor onBlur={this.handleBlur} onReset={this.handleReset} onSave={this.handleSave}
-           onSetName={this.handleSetName} onLoad={this.handleLoad} text={this.state.typed} />
+      onSetName={this.handleSetName} onLoad={this.handleLoad} onSend={this.handleSend} text={this.state.typed} />
         <Viewer text={md.render(this.state.typed)} />
         <CapViewer text={this.state.typed.toUpperCase()} />
     </div>
