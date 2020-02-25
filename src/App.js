@@ -10,9 +10,8 @@ var md = require('markdown-it')();
 const CapViewer = Viewer
 
 const client = axios.create({
-  baseURL: 'https://confluence.eniro.com/rest/api',
-  timeout: 1000,
-  headers: {'Content-Type': 'application/json', 'Authorization': 'erro05:password' }
+  baseURL: 'http://localhost:9000',
+  timeout: 3000,
 });
 
 class App extends React.Component {
@@ -46,11 +45,13 @@ class App extends React.Component {
     this.setState({mdname: name});
   }
 
-  handleSend = () => client.get("/space")
+  handleSend = () => {
+    var j = { mdname: this.state.mdname, typed: md.render(this.state.typed)}
+    client.post("/create", j)
       .then(res => {
-        console.log(res);
         console.log(res.data);
       })
+  }
 
   render() {
     return (
