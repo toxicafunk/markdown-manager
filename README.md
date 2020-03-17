@@ -3,6 +3,21 @@ Live edit, import and export markdown files
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Roadmap
+
+1. Redux + Axios
+2. Add [Semantic UI](https://semantic-ui.com/)
+3. Add backend storage: embedded DB such as sqlite (full-fledged SQL), rocksdb
+  (key-value store), other.
+  * JOOQ layer for sqlite
+  * Doobie (FP)
+4. Remove the `<p>`, `<a>` and any unwanted markup from exported documents
+5. http4s backend (how it compares to Play!)
+6. Vert.x backend
+7. Add some WASM, maybe some ML Search Algo, and compare with pure JS
+8. Import from Confluence, update and delete documents.
+9. ScalaJS + React = Slinky
+
 ## Available Scripts
 
 Remember to run `yarn install`, then in the project directory, you can run:
